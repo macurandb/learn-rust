@@ -8,3 +8,4 @@ A good starting point for a new Rust project
 #### Note to add dependency 
 
 cargo add clap@4.0.32 --features derive
+cargo update

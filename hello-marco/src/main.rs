@@ -1,35 +1,29 @@
-use std::process::Command;
 use clap::Parser;
 
-
 #[derive(Parser)]
-#[clap(version= "1.0", author="Duany Baro", about= "A Marco Polo game")]
+#[clap(version = "1.0", author = "Duany Baro", about = "A Marco Polo game")]
 struct Cli {
     #[clap(subcommand)]
-    command: Option<Command>,
+    command: Option<Commands>,
 }
 
 #[derive(Parser)]
-enum Commands{
-    #[clap(version= "1.0", author="Duany Baro")]
+enum Commands {
+    #[clap(version = "1.0", author = "Duany Baro")]
     Play {
-        #[clap(show, long)]
-        name: String
-    }
+        #[clap(short, long)]
+        name: String,
+    },
 }
 
 fn main() {
     let args: Cli = Cli::parse();
 
     match args.command {
-        Some(Commands::Play{name}) => {
-            if name=="Marco" {
-                println!("Polo");
-            }
-            else {
-                println!( "What 's your name?")
-            }
+        Some(Commands::Play { name }) => {
+            let result = hello_marco::marco_polo(&name);
+            println!("{}", result);
         }
-        None => println!(N"No command given")
+        None => println!("No command given"),
     }
 }
